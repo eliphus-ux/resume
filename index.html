@@ -178,9 +178,38 @@
 
                 type();
               </script>
+		    <br><br>
+              <script>
+                const typingAnimationElement = document.getElementById('typing-animation');
+                const typingTexts = ['A qualitative Electronic Engineer, focusing on the design and development of electronic systems and components.'];
+                let textIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
 
+                function type() {
+                  const currentText = typingTexts[textIndex];
+                  if (isDeleting) {
+                    typingAnimationElement.textContent = currentText.substring(0, charIndex--);
+                  } else {
+                    typingAnimationElement.textContent = currentText.substring(0, charIndex++);
+                  }
+
+                  if (!isDeleting && charIndex === currentText.length + 1) {
+                    isDeleting = true;
+                    setTimeout(type, 1000);
+                  } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % typingTexts.length;
+                    setTimeout(type, 500);
+                  } else {
+                    setTimeout(type, isDeleting ? 100 : 200);
+                  }
+                }
+
+                type();
+              </script>
               <br><br>
-              <h2>A qualitative Electronic Engineer, focusing on the design and development of electronic systems and components.</h2>
+              <!--<h2>A qualitative Electronic Engineer, focusing on the design and development of electronic systems and components.</h2>-->
             </div>
           </div>
         </div>
